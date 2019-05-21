@@ -20,13 +20,13 @@ public class accountTests {
 	@Test
 	public void test1() {
 		Service.addAccount(accounts.getAccounts(), new Account("name", "surname"));
-		Service.addAccount(accounts.getAccounts(), new Account("name", "surname"));
-		assertEquals("count not 2", Service.countName(accounts.getAccounts(),"name"), 2);
+		Service.addAccount(accounts.getAccounts(), new Account("name", "me"));
+		assertEquals("count not 2", 2, Service.countName(accounts.getAccounts(),"name"));
 	}	
 	@Test
 	public void test2() {
 		Service.addAccount(accounts.getAccounts(), new Account("name", "surname"));
-		assertEquals("count not 2", Service.countName(accounts.getAccounts(),"name"), 1);
+		assertEquals("count not 1", 1, Service.countName(accounts.getAccounts(),"name"));
 	}
 	
 }
