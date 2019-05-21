@@ -25,8 +25,10 @@ public class Service {
 			e.printStackTrace();
 		}
 	}
-	public static int countName(String name) {
-		return 0;
+	public static int countName(Map<Integer, Account> accMap, String name) {
+		int count = 0;
+		
+		return count;
 	}
 
 }
