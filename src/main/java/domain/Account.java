@@ -1,4 +1,4 @@
-package account_application;
+package domain;
 
 public class Account {
 	private String firstName;
@@ -11,7 +11,6 @@ public class Account {
 		this.firstName=firstName;
 		lastName=surname;
 	}
-	
 	public String getFirstName(){
 		return firstName;
 	}
