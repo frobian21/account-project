@@ -28,13 +28,13 @@ public class Service {
 			e.printStackTrace();
 		}
 	}
+
 	public static int countName(Map<Integer, Account> accMap, String name) {
 		int count = 0;
 		Set<Integer> keys = accMap.keySet();
 		Iterator<Integer> itr = keys.iterator();
-		while(itr.hasNext()) {
-			
-			if(accMap.get(itr.next()).getFirstName().equals(name)) {
+		while (itr.hasNext()) {
+			if (accMap.get(itr.next()).getFirstName().equals(name)) {
 				count++;
 			}
 		}
