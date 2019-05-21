@@ -7,6 +7,7 @@ public class Account {
 	
 	public Account() {;
 	}
+
 	public Account(String firstName, String surname) {
 		this.firstName=firstName;
 		lastName=surname;
