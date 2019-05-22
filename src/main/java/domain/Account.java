@@ -1,8 +1,16 @@
 package domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Account {
+
+	@Column(length=30)
 	private String firstName;
+	@Column(length=30)
 	private String lastName;
+	@Column(length=4)
 	private int accountNumber;
 	
 	public Account() {;
