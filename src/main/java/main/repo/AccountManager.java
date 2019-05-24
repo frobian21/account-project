@@ -36,7 +36,7 @@ public class AccountManager implements AccountRepo {
 
 	@Override
 	public String createAccount(String account) {
-		this.accMap.put(this.count++, this.util.fromJSON(account, Account.class));
+		this.accMap.put(this.count++, util.fromJSON(account, Account.class));
 		return "{\"message\": \"account has been sucessfully added\"}";
 	}
 
@@ -46,9 +46,9 @@ public class AccountManager implements AccountRepo {
 	}
 
 	@Override
-	public Account updateAccount(int id, Account account) {
-		this.accMap.put(id, account);
-		return this.accMap.get(id);
+	public Account updateAccount(Account account) {
+		this.accMap.put(account.getAccountNumber(), account);
+		return this.accMap.get(account.getAccountNumber());
 	}
 
 	@Override

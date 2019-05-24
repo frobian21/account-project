@@ -22,9 +22,9 @@ public class JSONUtil {
 	
 	public <T> T fromJSON(String json, Class<T> clazz) {
 		try {
-			return mapper.readValue(json, clazz);
+			return this.mapper.readValue(json, clazz);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.toString());
 			return null;
 		}
 	}

@@ -9,7 +9,7 @@ public interface AccountRepo {
 
 	public Account readAccount(int id);
 
-	public Account updateAccount(int id, Account account);
+	public Account updateAccount(Account account);
 
 	public String deleteAccount(int id);
 

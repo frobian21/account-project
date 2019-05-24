@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+function performGetRequest1(){
+	let resultElement = document.getElementById('getResult1');
+	axios.get('http://localhost:8080/account_application/rest/account/getAccount/all')
+	.then(response =>{
+		resultElement.innerHTML=JSON.stringify(response.data);
+	})
+	.catch(error =>{
+		resultElement.innerHTML="account not found"
+	})
+}
+function clear1(){
+	document.getElementById('getResult1').innerHTML="";
+	document.getElementById('getResult2').innerHTML="";
+	document.getElementById('getResult3').innerHTML="";
+	document.getElementById('getResult4').innerHTML="";
+	document.getElementById('getResult5').innerHTML="";
+}
+function performGetRequest2(){
+	let resultElement = document.getElementById('getResult2');
+	let accno=document.getElementById('accNo').value;
+	axios.get('http://localhost:8080/account_application/rest/account/getAccount/'+accno)
+	.then(response =>{
+		resultElement.innerHTML=JSON.stringify(response.data);
+	})
+	.catch(error =>{
+		resultElement.innerHTML="account not found";
+	})
+	return false;
+}
+function performDeleteRequest(){
+	let resultElement = document.getElementById('getResult3');
+	let accno=document.getElementById('accNo2');
+	axios.delete('http://localhost:8080/account_application/rest/account/deleteAccount/'+accno.value)
+	.then(response =>{
+		resultElement.innerHTML=response.data.message;
+	})
+	.catch(error =>{
+		resultElement.innerHTML="account not found";
+	})
+	accno.focus();
+	return false;
+}
+function addAccount(){
+	let resultElement = document.getElementById('getResult4');
+	let firstname = document.getElementById('firstname').value;
+	let secondname = document.getElementById('secondname').value;
+	axios.post('http://localhost:8080/account_application/rest/account/addAccount',{
+    	firstName: firstname,
+   		lastName: secondname
+	})
+	.then(response =>{
+		resultElement.innerHTML=response.data.message;
+	})
+	.catch(error =>{
+		resultElement.innerHTML="account not found";
+	})
+}
+function showAccount(){
+	let accno=document.getElementById('accNo3').value;
+	axios.get('http://localhost:8080/account_application/rest/account/getAccount/'+accno)
+	.then(response =>{
+		document.getElementById('updater').style.visibility='visible';
+		document.getElementById('accountnumber').value=accno;
+		document.getElementById('forename').value=response.data.firstName;
+		document.getElementById('surname').value=response.data.lastName;
+	})
+	.catch(error =>{
+		console.log("account not found");
+	})
+	return false;
+}
+function updateAccount(){
+	let resultElement = document.getElementById('getResult5');
+	let accno = document.getElementById('accNo').value;
+	let forename = document.getElementById('forename').value;
+	let surname = document.getElementById('surname').value;
+	axios.post('http://localhost:8080/account_application/rest/account/updateAccount',{
+    	firstName: forename,
+   		lastName: surname,
+   		accountNumber: accno
+	})
+	.then(response =>{
+		resultElement.innerHTML=JSON.stringify(response.data);
+		resultElement.innerHTML="<br>account found";		
+	})
+	.catch(error =>{
+		resultElement.innerHTML="account not found";
+	})
+	return false;
+}
+</script>
+<title>FrontEnd</title>
+</head>
+<body><center>
+	<div style="background-color: lightblue">
+		<input value="get all accounts" type="button" onclick="performGetRequest1()">
+		<input value="clear" type="button" onclick="clear1()"><br>
+		<div id="getResult1"></div>
+	</div>
+	<div style="background-color: blue">
+		<form onsubmit="return performGetRequest2()">
+			<input required type="number" min=0 id="accNo">
+			<input value="get account" type="submit">
+			<input value="clear" type="button" onclick="clear1()">
+		</form>
+		<div id="getResult2" style="color: white">hi</div>
+	</div>
+	<div style="background-color: green">
+		<form onsubmit="return performDeleteRequest()">
+			<input required type="number" min=0 id="accNo2">
+			<input value="delete account" type="submit">
+			<input value="clear" type="button" onclick="clear1()">
+		</form>
+		<div id="getResult3" style="color: white"></div>
+	</div>
+	<div style="background-color: purple">
+			First Name <input required id="firstname" value="Fred"><br>
+			Last Name <input required id="secondname" value="Flintstone"><br>
+			<input value="add account" type="button" onclick="addAccount()">
+			<input value="clear" type="button" onclick="clear1()">
+			<br>
+			<div id="getResult4" style="color: white"></div>
+	</div>
+	<div style="background-color: grey">
+		<form onsubmit="return showAccount()">
+			<input required type="number" min=0 id="accNo3">
+			<input value="get account" type="submit">
+			<input value="clear" type="button" onclick="clear1()">
+		</form>
+		<form onsubmit="return performUpdateRequest()" id="updater" style="visibility: hidden">
+			Account Number <input required id="accountnumber" readonly><br>
+			First Name <input required id="forename"><br>
+			Last Name <input required id="surname"><br>
+			<input value="update account" type="button" onclick="updateAccount()">
+			<input value="clear" type="button" onclick="clear1()">
+		</form>
+			<div id="getResult5" style="color: white"></div>
+	</div>
+
+</body>
+</html>

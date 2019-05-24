@@ -30,7 +30,7 @@ public class Service {
 	}
 
 	public String retrieveAccount(int accNo) {
-		return this.json.toJSON(this.repo.readAccount(accNo));
+		return json.toJSON(this.repo.readAccount(accNo));
 	}
 	public String retrieveAllAccounts() {
 		return repo.retrieveAllAccounts();
@@ -38,7 +38,7 @@ public class Service {
 	public String deleteAccount(int id) {
 		return repo.deleteAccount(id);
 	}
-	public Account updateAccount(int id, Account account) {
-		return repo.updateAccount(id, account);
+	public String updateAccount(String account) {
+		return json.toJSON(repo.updateAccount(json.fromJSON(account, Account.class)));
 	}
 }

@@ -13,6 +13,7 @@ public class Account {
 	private String firstName;
 	@Column(length = 30)
 	private String lastName;
+	@Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int accountNumber;
@@ -21,10 +22,9 @@ public class Account {
 
 	}
 
-	public Account(String firstName, String lastName, int accountNumber) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.accountNumber = accountNumber;
+	public Account(String firstName, String lastName) {
+		setFirstName(firstName);
+		setFirstName(lastName);
 	}
 
 	public String getFirstName() {

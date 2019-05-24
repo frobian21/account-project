@@ -5,6 +5,7 @@ import static javax.transaction.Transactional.TxType.SUPPORTS;
 
 import java.util.Collection;
 
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +15,7 @@ import main.domain.Account;
 import main.util.JSONUtil;
 
 @Transactional(SUPPORTS)
+@Default
 public class AccountRepoDB implements AccountRepo {
 
 	@Inject
@@ -32,7 +34,7 @@ public class AccountRepoDB implements AccountRepo {
 
 	@Override
 	public String retrieveAllAccounts() {
-		TypedQuery<Account> query = manager.createQuery("SELECT m FROM Accounts m ORDER BY m.accountnumber DESC",
+		TypedQuery<Account> query = manager.createQuery("SELECT m FROM Account m ORDER BY m.accountNumber DESC",
 				Account.class);
 		Collection<Account> accounts = query.getResultList();
 		return util.toJSON(accounts);
@@ -43,7 +45,7 @@ public class AccountRepoDB implements AccountRepo {
 	public String createAccount(String account) {
 		Account anAccount = util.fromJSON(account, Account.class);
 		manager.persist(anAccount);
-		return "{\"message\": \"movie has been sucessfully added\"}";
+		return "{\"message\": \"account has been sucessfully added\"}";
 	}
 
 	@Override
@@ -53,13 +55,11 @@ public class AccountRepoDB implements AccountRepo {
 
 	@Override
 	@Transactional(REQUIRED)
-	public Account updateAccount(int id, Account account) {
-		if (manager.contains(manager.find(Account.class, id))) {
-			manager.remove(manager.find(Account.class, id));
-			manager.persist(account);
-//			manager.refresh(manager.find(Account.class, id));
+	public Account updateAccount(Account account) {
+		if (manager.contains(manager.find(Account.class, account.getAccountNumber()))) {
+			return manager.merge(account);
 		}
-		return manager.find(Account.class, id);
+		return manager.find(Account.class, account.getAccountNumber());
 	}
 
 	@Override
